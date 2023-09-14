@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tomcat-jenkins
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: tomcat-jenkins
+  template:
+    metadata:
+      labels:
+        app: tomcat-jenkins
+    spec:
+      containers:
+        - name: tomcat-jenkins
+          image: purushothamareddy/simpleapp:3.0
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - mountPath: "/mnt/azure"
+              name: volume
+      volumes:
+       - name: volume
+         persistentVolumeClaim:
+            claimName: azure-managed-disk-pvc
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
