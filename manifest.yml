@@ -1,20 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tomcat-jenkins
+  name: simple-app
+  labels:
+    app: simple-app
+    evn: prod
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: tomcat-jenkins
+      app: simple-app
+      env: prod
   template:
     metadata:
       labels:
-        app: tomcat-jenkins
+        app: simple-app
+        env: prod
     spec:
       containers:
-        - name: tomcat-jenkins
-          image: purushothamareddy/simpleapp:3.0
+        - name: simple-app
+          image: purushothamareddy/simpleapp:3.0.0
           ports:
             - containerPort: 8080
           volumeMounts:
@@ -34,10 +39,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: tomcat-jenkins
+  name: simple-app
 spec:
   selector:
-    app: tomcat-jenkins
+    app: simple-app
+    env: prod
   ports:
     - protocol: TCP
       port: 80
