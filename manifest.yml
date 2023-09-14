@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tomcat-jenkins
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: tomcat-jenkins
+  template:
+    metadata:
+      labels:
+        app: tomcat-jenkins
+    spec:
+      containers:
+        - name: tomcat-jenkins
+          image: purushothamareddy/simpleapp:3.0
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - mountPath: "/mnt/azure"
+              name: volume
+      volumes:
+       - name: volume
+         persistentVolumeClaim:
+            claimName: azure-managed-disk-pvc
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tomcat-jenkins
+spec:
+  selector:
+    app: tomcat-jenkins
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer
+
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: azuredisk-premium-retain
+provisioner: kubernetes.io/azure-disk
+reclaimPolicy: Retain   
+volumeBindingMode: WaitForFirstConsumer   
+allowVolumeExpansion: true    
+parameters:
+  storageaccounttype: Premium_LRS   # Premium or Standard
+  kind: Managed
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: azure-managed-disk-pvc
+spec:
+  accessModes:
+  - ReadWriteOnce   
+  storageClassName: azuredisk-premium-retain
+  resources:
+    requests:
+      storage: 4Gi
+
+  
+
+      
