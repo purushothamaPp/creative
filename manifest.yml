@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: simple-app
-          image: purushothamareddy/simpleapp:3.0.0
+          image: purushothamareddy/simpleapp:3.0
           ports:
             - containerPort: 8080
           volumeMounts:
