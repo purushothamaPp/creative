@@ -11,14 +11,15 @@ stages:
         pool:
           vmImage: ubuntu-latest
         steps:
-          - script: mvn clean package
+          - script: echo "hello"
 
   - stage: test_stage
+    dependsOn: build_stage
     jobs:
       - job: jobA
         steps:
           -  script: echo "test"
-  - stage: 
+  - stage: deploy
     jobs:
       -  job: 
          steps:
