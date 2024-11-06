@@ -8,5 +8,18 @@ stages:
   - stage: build_stage
     jobs:
       - job: jobA
+        pool:
+          vmImage: ubuntu-latest
         steps:
           - script: echo "hello world"
+
+  - stage: test_stage
+    jobs:
+      - job: jobA
+        steps:
+          -  script: echo "test"
+  - stage: 
+    jobs:
+      -  job: 
+         steps:
+           -  script: echo "deploy"
