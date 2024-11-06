@@ -20,6 +20,7 @@ stages:
         steps:
           -  script: echo "test"
   - stage: deploy
+    dependsOn: build_stage
     jobs:
       -  job: 
          steps:
