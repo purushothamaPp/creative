@@ -11,7 +11,7 @@ stages:
         pool:
           vmImage: ubuntu-latest
         steps:
-          - script: echo "mvn clean package"
+          - script: sh "mvn clean package"
 
   - stage: test_stage
     jobs:
