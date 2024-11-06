@@ -15,6 +15,7 @@ stages:
 
   - stage: test_stage
     dependsOn: build_stage
+    condition: failed()
     jobs:
       - job: jobA
         steps:
