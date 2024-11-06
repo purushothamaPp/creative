@@ -21,6 +21,13 @@
         </repository>
     </repositories>
 
+    <distributionManagement>
+        <repository>
+            <id>purushothamareddyazure-repository</id>
+            <url>https://pkgs.dev.azure.com/purushothamareddyazure/_packaging/purushothamareddyazure/maven/v1</url>
+        </repository>
+    </distributionManagement>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
