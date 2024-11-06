@@ -1,41 +1,31 @@
 trigger:
- - main
+  branches:
+    include:
+      - main
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-latest'
 
-stages:
-  - stage: build_stage
-    jobs:
-      - job: jobA
-        pool:
-          vmImage: ubuntu-latest
-        steps:
-         - task: Maven@1
-           inputs:
-            mavenPomFile: 'pom.xml'
-            publishJUnitResults: false
-            javaHomeOption: 'JDKVersion'
-            mavenVersionOption: 'Default'
-            mavenAuthenticateFeed: false
-            sonarQubeRunAnalysis: false
+steps:
+  - script: |
+      echo "<settings xmlns=\"http://maven.apache.org/SETTINGS/1.0.0\"" > settings.xml
+      echo "          xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"" >> settings.xml
+      echo "          xsi:schemaLocation=\"http://maven.apache.org/SETTINGS/1.0.0" >> settings.xml
+      echo "                              https://maven.apache.org/xsd/settings-1.0.0.xsd\">" >> settings.xml
+      echo "  <servers>" >> settings.xml
+      echo "    <server>" >> settings.xml
+      echo "      <id>purushothamareddyazure</id>" >> settings.xml
+      echo "      <username>purushothamareddyazure</username>" >> settings.xml
+      echo "      <password>$(PersonalAccessToken)</password>" >> settings.xml  # Replace with your PAT
+      echo "    </server>" >> settings.xml
+      echo "  </servers>" >> settings.xml
+      echo "</settings>" >> settings.xml
+    displayName: 'Generate settings.xml'
 
-
-  - stage: test_stage
-    dependsOn: build_stage
-    condition: succeeded()
-    jobs:
-      - job: jobA
-        steps:
-          -  script: echo "test"
-  - stage: deploy
-    dependsOn: build_stage
-    jobs:
-      -  job: 
-         steps:
-            - task: PublishBuildArtifacts@1
-              inputs:
-                PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-                ArtifactName: 'drop'
-                publishLocation: 'Container'
-
+  # Use this settings.xml for Maven builds
+  - task: Maven@3
+    inputs:
+      mavenPomFile: 'pom.xml'
+      goals: 'clean install'
+      options: '--settings settings.xml'
+    displayName: 'Run Maven Build with Custom settings.xml'
