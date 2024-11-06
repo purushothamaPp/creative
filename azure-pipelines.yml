@@ -28,6 +28,13 @@ steps:
       mavenPomFile: 'pom.xml'
       goals: 'clean package'
       options: '--settings settings.xml'
+      publishJUnitResults: true
+      testResultsFiles: '**/surefire-reports/TEST-*.xml'
+      javaHomeOption: 'JDKVersion'
+      mavenVersionOption: 'Default'
+      mavenAuthenticateFeed: false
+      effectivePomSkip: false
+      sonarQubeRunAnalysis: false
     displayName: 'Run Maven Build with Custom settings.xml'
 
   - task: Maven@4
