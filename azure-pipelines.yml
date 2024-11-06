@@ -13,13 +13,11 @@ stages:
         steps:
          - task: Maven@1
            inputs:
-            
             mavenPomFile: 'pom.xml'
             publishJUnitResults: false
             javaHomeOption: 'JDKVersion'
             mavenVersionOption: 'Default'
             mavenAuthenticateFeed: false
-            
             sonarQubeRunAnalysis: false
 
 
@@ -35,4 +33,9 @@ stages:
     jobs:
       -  job: 
          steps:
-           -  script: echo "deploy"
+            - task: PublishBuildArtifacts@1
+              inputs:
+                PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+                ArtifactName: 'drop'
+                publishLocation: 'Container'
+
