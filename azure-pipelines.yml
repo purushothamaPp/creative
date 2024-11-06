@@ -6,6 +6,9 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+  PersonalAccessToken: $(PersonalAccessToken)  # Ensure this is defined securely in your pipeline
+
 steps:
   - script: |
       echo "<settings xmlns=\"http://maven.apache.org/SETTINGS/1.0.0\"" > settings.xml
@@ -27,7 +30,7 @@ steps:
     inputs:
       mavenPomFile: 'pom.xml'
       goals: 'clean package'
-      options: '--settings settings.xml'
+      options: '--settings settings.xml -X'  # Enable debug output
       publishJUnitResults: true
       testResultsFiles: '**/surefire-reports/TEST-*.xml'
       javaHomeOption: 'JDKVersion'
