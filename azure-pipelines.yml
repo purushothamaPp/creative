@@ -11,11 +11,11 @@ stages:
         pool:
           vmImage: ubuntu-latest
         steps:
-          - script: sh "hello"
+          - script: echo "hello"
 
   - stage: test_stage
     dependsOn: build_stage
-    condition: failed()
+    condition: succeeded()
     jobs:
       - job: jobA
         steps:
