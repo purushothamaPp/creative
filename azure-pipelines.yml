@@ -11,7 +11,7 @@ stages:
         pool:
           vmImage: ubuntu-latest
         steps:
-          - script: echo "hello"
+          - script: sh "hello"
 
   - stage: test_stage
     dependsOn: build_stage
