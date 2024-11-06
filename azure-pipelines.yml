@@ -7,7 +7,8 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  PersonalAccessToken: $(PersonalAccessToken)  # Ensure this is defined securely in your pipeline
+  - name: PersonalAccessToken
+    value: $(PersonalAccessToken)  # Ensure this is defined securely in your pipeline
 
 steps:
   - script: |
