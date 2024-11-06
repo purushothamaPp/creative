@@ -1,13 +1,12 @@
 trigger:
-- main
+ - main
 
 pool:
- vmImage: ubuntu-latest
+  vmImage: ubuntu-latest
 
 stages:
-  - stage: A
+  - stage: build_stage
     jobs:
       - job: jobA
         steps:
-          - script: echo "helo world"
-
+          - script: echo "hello world"
