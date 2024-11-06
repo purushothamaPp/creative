@@ -26,7 +26,7 @@ steps:
   - task: Maven@4
     inputs:
       mavenPomFile: 'pom.xml'
-      goals: 'clean install'
+      goals: 'clean package'
       options: '--settings settings.xml'
     displayName: 'Run Maven Build with Custom settings.xml'
 
