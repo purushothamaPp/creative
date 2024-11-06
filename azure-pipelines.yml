@@ -11,7 +11,17 @@ stages:
         pool:
           vmImage: ubuntu-latest
         steps:
-          - script: echo "hello"
+         - task: Maven@4
+           inputs:
+            azureSubscription: 'Azure subscription 1(44660563-bf97-4629-b923-168922355073)'
+            mavenPomFile: 'pom.xml'
+            publishJUnitResults: false
+            javaHomeOption: 'JDKVersion'
+            mavenVersionOption: 'Default'
+            mavenAuthenticateFeed: false
+            effectivePomSkip: false
+            sonarQubeRunAnalysis: false
+
 
   - stage: test_stage
     dependsOn: build_stage
