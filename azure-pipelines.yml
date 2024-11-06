@@ -23,9 +23,22 @@ steps:
     displayName: 'Generate settings.xml'
 
   # Use this settings.xml for Maven builds
-  - task: Maven@3
+  - task: Maven@4
     inputs:
       mavenPomFile: 'pom.xml'
       goals: 'clean install'
       options: '--settings settings.xml'
+    displayName: 'Run Maven Build with Custom settings.xml'
+
+  - task: Maven@4
+    inputs:
+      mavenPomFile: 'pom.xml'
+      goals: 'deploy'
+      options: '--settings settings.xml'
+      publishJUnitResults: false
+      javaHomeOption: 'JDKVersion'
+      mavenVersionOption: 'Default'
+      mavenAuthenticateFeed: false
+      effectivePomSkip: false
+      sonarQubeRunAnalysis: false
     displayName: 'Run Maven Build with Custom settings.xml'
