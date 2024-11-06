@@ -8,6 +8,19 @@
     <name>simple-app</name>
     <url>http://maven.apache.org</url>
 
+    <repositories>
+        <repository>
+            <id>purushothamareddyazure</id>
+            <url>https://pkgs.dev.azure.com/purushothamareddyazure/_packaging/purushothamareddyazure/maven/v1</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
