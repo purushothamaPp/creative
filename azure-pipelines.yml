@@ -11,15 +11,15 @@ stages:
         pool:
           vmImage: ubuntu-latest
         steps:
-         - task: Maven@4
+         - task: Maven@1
            inputs:
-            azureSubscription: 'Azure subscription 1(44660563-bf97-4629-b923-168922355073)'
+            
             mavenPomFile: 'pom.xml'
             publishJUnitResults: false
             javaHomeOption: 'JDKVersion'
             mavenVersionOption: 'Default'
             mavenAuthenticateFeed: false
-            effectivePomSkip: false
+            
             sonarQubeRunAnalysis: false
 
 
