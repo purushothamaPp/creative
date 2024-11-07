@@ -8,7 +8,7 @@ pool:
 
 variables:
   - name: PersonalAccessToken
-    value: $(PersonalAccessToken)  # Ensure this is defined securely in your pipeline
+    value: $(token)  # Ensure this is defined securely in your pipeline
 
 steps:
   - script: |
