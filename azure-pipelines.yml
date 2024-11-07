@@ -29,9 +29,10 @@ steps:
   # Use this settings.xml for Maven builds
   - task: Maven@4
     inputs:
+      azureSubscription: 'Azure subscription 1(1)(44660563-bf97-4629-b923-168922355073)'
       mavenPomFile: 'pom.xml'
       goals: 'clean package'
-      options: '--settings settings.xml -X'  # Enable debug output
+      options: '--settings settings.xml -X'
       publishJUnitResults: true
       testResultsFiles: '**/surefire-reports/TEST-*.xml'
       javaHomeOption: 'JDKVersion'
@@ -43,13 +44,14 @@ steps:
 
   - task: Maven@4
     inputs:
+      azureSubscription: 'Azure subscription 1(2)(44660563-bf97-4629-b923-168922355073)'
       mavenPomFile: 'pom.xml'
       goals: 'deploy'
       options: '--settings settings.xml'
       publishJUnitResults: false
       javaHomeOption: 'JDKVersion'
       mavenVersionOption: 'Default'
-      mavenAuthenticateFeed: false
+      mavenAuthenticateFeed: true
       effectivePomSkip: false
       sonarQubeRunAnalysis: false
     displayName: 'Run Maven Build with Custom settings.xml'
